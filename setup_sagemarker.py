@@ -40,7 +40,7 @@ extensions = [
 for command, message in commands:
     run_command(command, message)
 
-os.chdir('~/stable-diffusion-webui-forge-sagemarker/extensions')  
+os.chdir('/home/studio-lab-user/stable-diffusion-webui-forge-sagemarker/extensions')  
 
 for extension in extensions:
     download_ext(extension)
