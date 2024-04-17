@@ -1,20 +1,23 @@
 import os
-import time
-token = ""
+import subprocess
+from contextlib import suppress
 
-def enable_zrok(token):
-    os.system(f"zrok enable {token}")
-    
-def connection():
-    time.sleep(15)
+os.chdir("/home/studio-lab-user")
+
+def run_command(command, message):
+    print(f"Please wait, {message} is loading...")
     try:
-        os.system("zrok share public http://localhost:7860 --headless")
-    except Exception as e:
-        print(f"Error al conectarse, verifique su token.\n {e}")
+        subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f"{message} completed successfully!")
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {message} failed with the following output:\n{e.stderr.decode('utf-8')}")
 
-try:
-    enable_zrok(token)
-except Exception as e:
-    print(f"ERROR - {e}")
-    
-connection()
+commands = [
+    ('conda install conda -y', 'Conda'),
+    ('conda update -n base conda -y', 'Update'),
+    ('conda install -n base python=3.10 -y', 'Python'),
+    ('conda install -q -y glib=2.51.0', 'glib')
+]
+
+for command, message in commands:
+    run_command(command, message)
