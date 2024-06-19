@@ -2,7 +2,7 @@ import os
 import subprocess
 from contextlib import suppress
 
-os.chdir("/workspace")  
+os.chdir("stable-diffusion-webui-forge-sagemarker/extensions")  
 
 
 def download_ext(command):
@@ -31,8 +31,6 @@ extensions = [
     'git clone https://github.com/catppuccin/stable-diffusion-webui',
     'git clone https://github.com/thomasasfk/sd-webui-aspect-ratio-helper'
 ]
-
-os.chdir('workspace/stable-diffusion-webui-forge-sagemarker/extensions')  
 
 for extension in extensions:
     download_ext(extension)
