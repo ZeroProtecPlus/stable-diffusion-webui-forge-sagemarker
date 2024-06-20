@@ -46,8 +46,8 @@ extensions = [
     'git clone https://github.com/thomasasfk/sd-webui-aspect-ratio-helper'
 ]
 
-for extension in extensions:
-    download_ext(extension)
+for command, message in commands:
+    run_command(command, message)
 
 for extension in extensions:
     download_ext(extension)
