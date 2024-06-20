@@ -2,8 +2,22 @@ import os
 import subprocess
 from contextlib import suppress
 
-os.chdir("stable-diffusion-webui-forge-sagemarker/extensions")  
+os.chdir("/workspace")  
 
+def run_command(command, message):
+    print(f"Please wait, {message} is loading...")
+    try:
+        subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f"{message} completed successfully!")
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {message} failed with the following output:\n{e.stderr.decode('utf-8')}")
+
+commands = [
+    ('pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu121', 'Torch'),
+    ('conda install -q -y aria2 gdown', 'aria2 and gdown')
+]
+
+os.chdir("stable-diffusion-webui-forge-sagemarker/extensions")  
 
 def download_ext(command):
     print("Downloading Extensions")
@@ -31,6 +45,9 @@ extensions = [
     'git clone https://github.com/catppuccin/stable-diffusion-webui',
     'git clone https://github.com/thomasasfk/sd-webui-aspect-ratio-helper'
 ]
+
+for extension in extensions:
+    download_ext(extension)
 
 for extension in extensions:
     download_ext(extension)
