@@ -49,5 +49,5 @@ extensions = [
 for command, message in commands:
     run_command(command, message)
 
-for extension in extensions:
-    download_ext(extension)
+#for extension in extensions:
+#    download_ext(extension)
